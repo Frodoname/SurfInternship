@@ -7,13 +7,21 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+final class MainViewController: UIViewController {
+    
+    var presenter: MainViewInput!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        view.backgroundColor = .blue
     }
 
 
+}
+
+extension MainViewController: MainViewOutput {
+
+    
 }
 
