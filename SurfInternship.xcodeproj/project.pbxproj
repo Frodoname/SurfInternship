@@ -13,15 +13,15 @@
 		89C54E8E2990069300B84960 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89C54E8D2990069300B84960 /* Assets.xcassets */; };
 		89C54E912990069300B84960 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C54E8F2990069300B84960 /* LaunchScreen.storyboard */; };
 		89C54EA029900AE100B84960 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54E9F29900AE100B84960 /* MainPresenter.swift */; };
-		89C54EA2299018D300B84960 /* SurfCompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EA1299018D300B84960 /* SurfCompany.swift */; };
+		89C54EA2299018D300B84960 /* Internship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EA1299018D300B84960 /* Internship.swift */; };
 		89C54EC829913E8400B84960 /* DirectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EC729913E8400B84960 /* DirectionCell.swift */; };
 		89C54ECB2991404C00B84960 /* UIView + Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54ECA2991404C00B84960 /* UIView + Extenstion.swift */; };
 		89C54ECD299140ED00B84960 /* ColorScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54ECC299140ED00B84960 /* ColorScheme.swift */; };
 		89C54ECF2991428E00B84960 /* FontScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54ECE2991428E00B84960 /* FontScheme.swift */; };
 		89C54ED7299159CA00B84960 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54ED6299159CA00B84960 /* Router.swift */; };
 		89C54EDA29915A7400B84960 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54ED929915A7400B84960 /* Assembly.swift */; };
-		89C54EDF29915BAA00B84960 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EDE29915BAA00B84960 /* BaseViewController.swift */; };
-		89C54EE129915BB400B84960 /* BasePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EE029915BB400B84960 /* BasePresenter.swift */; };
+		89C54EE329916C3F00B84960 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EE229916C3E00B84960 /* MainView.swift */; };
+		89C54EE52992E47C00B84960 /* UIViewController + Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EE42992E47C00B84960 /* UIViewController + Extenstion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,15 +33,15 @@
 		89C54E902990069300B84960 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C54E922990069300B84960 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		89C54E9F29900AE100B84960 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
-		89C54EA1299018D300B84960 /* SurfCompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfCompany.swift; sourceTree = "<group>"; };
+		89C54EA1299018D300B84960 /* Internship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Internship.swift; sourceTree = "<group>"; };
 		89C54EC729913E8400B84960 /* DirectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionCell.swift; sourceTree = "<group>"; };
 		89C54ECA2991404C00B84960 /* UIView + Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extenstion.swift"; sourceTree = "<group>"; };
 		89C54ECC299140ED00B84960 /* ColorScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorScheme.swift; sourceTree = "<group>"; };
 		89C54ECE2991428E00B84960 /* FontScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontScheme.swift; sourceTree = "<group>"; };
 		89C54ED6299159CA00B84960 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		89C54ED929915A7400B84960 /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
-		89C54EDE29915BAA00B84960 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		89C54EE029915BB400B84960 /* BasePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePresenter.swift; sourceTree = "<group>"; };
+		89C54EE229916C3E00B84960 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		89C54EE42992E47C00B84960 /* UIViewController + Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extenstion.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,9 +75,9 @@
 			isa = PBXGroup;
 			children = (
 				89C54E98299006FB00B84960 /* App */,
-				89C54EC92991403800B84960 /* Extensions */,
-				89C54ED5299159AF00B84960 /* Services */,
-				89C54E9A2990071F00B84960 /* User Stories */,
+				89C54EC92991403800B84960 /* Extension */,
+				89C54ED5299159AF00B84960 /* Service */,
+				89C54E9A2990071F00B84960 /* User Storie */,
 				89C54E992990071200B84960 /* Resource */,
 			);
 			path = SurfInternship;
@@ -104,13 +104,12 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
-		89C54E9A2990071F00B84960 /* User Stories */ = {
+		89C54E9A2990071F00B84960 /* User Storie */ = {
 			isa = PBXGroup;
 			children = (
-				89C54EA329901B0900B84960 /* BaseModule */,
 				89C54E9E2990076900B84960 /* MainModule */,
 			);
-			path = "User Stories";
+			path = "User Storie";
 			sourceTree = "<group>";
 		};
 		89C54E9B2990072A00B84960 /* View */ = {
@@ -125,7 +124,7 @@
 		89C54E9C2990074D00B84960 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				89C54EA1299018D300B84960 /* SurfCompany.swift */,
+				89C54EA1299018D300B84960 /* Internship.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -148,38 +147,31 @@
 			path = MainModule;
 			sourceTree = "<group>";
 		};
-		89C54EA329901B0900B84960 /* BaseModule */ = {
-			isa = PBXGroup;
-			children = (
-				89C54EDC29915B8E00B84960 /* View */,
-				89C54EDD29915B9800B84960 /* Present */,
-			);
-			path = BaseModule;
-			sourceTree = "<group>";
-		};
 		89C54EC629913E5200B84960 /* SubView */ = {
 			isa = PBXGroup;
 			children = (
 				89C54EC729913E8400B84960 /* DirectionCell.swift */,
+				89C54EE229916C3E00B84960 /* MainView.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
 		};
-		89C54EC92991403800B84960 /* Extensions */ = {
+		89C54EC92991403800B84960 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				89C54ECA2991404C00B84960 /* UIView + Extenstion.swift */,
+				89C54EE42992E47C00B84960 /* UIViewController + Extenstion.swift */,
 			);
-			path = Extensions;
+			path = Extension;
 			sourceTree = "<group>";
 		};
-		89C54ED5299159AF00B84960 /* Services */ = {
+		89C54ED5299159AF00B84960 /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				89C54ED8299159DC00B84960 /* Router */,
 				89C54EDB29915A7800B84960 /* Assembly */,
 			);
-			path = Services;
+			path = Service;
 			sourceTree = "<group>";
 		};
 		89C54ED8299159DC00B84960 /* Router */ = {
@@ -196,22 +188,6 @@
 				89C54ED929915A7400B84960 /* Assembly.swift */,
 			);
 			path = Assembly;
-			sourceTree = "<group>";
-		};
-		89C54EDC29915B8E00B84960 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				89C54EDE29915BAA00B84960 /* BaseViewController.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		89C54EDD29915B9800B84960 /* Present */ = {
-			isa = PBXGroup;
-			children = (
-				89C54EE029915BB400B84960 /* BasePresenter.swift */,
-			);
-			path = Present;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,17 +261,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				89C54ECD299140ED00B84960 /* ColorScheme.swift in Sources */,
+				89C54EE329916C3F00B84960 /* MainView.swift in Sources */,
 				89C54EDA29915A7400B84960 /* Assembly.swift in Sources */,
 				89C54E892990069100B84960 /* MainViewController.swift in Sources */,
 				89C54ED7299159CA00B84960 /* Router.swift in Sources */,
 				89C54E852990069100B84960 /* AppDelegate.swift in Sources */,
-				89C54EDF29915BAA00B84960 /* BaseViewController.swift in Sources */,
 				89C54ECB2991404C00B84960 /* UIView + Extenstion.swift in Sources */,
 				89C54E872990069100B84960 /* SceneDelegate.swift in Sources */,
-				89C54EE129915BB400B84960 /* BasePresenter.swift in Sources */,
 				89C54ECF2991428E00B84960 /* FontScheme.swift in Sources */,
+				89C54EE52992E47C00B84960 /* UIViewController + Extenstion.swift in Sources */,
 				89C54EC829913E8400B84960 /* DirectionCell.swift in Sources */,
-				89C54EA2299018D300B84960 /* SurfCompany.swift in Sources */,
+				89C54EA2299018D300B84960 /* Internship.swift in Sources */,
 				89C54EA029900AE100B84960 /* MainPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

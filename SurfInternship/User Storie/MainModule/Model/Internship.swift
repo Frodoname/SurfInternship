@@ -7,10 +7,6 @@
 
 import Foundation
 
-struct SurfCompany {
-    let internship: [Internship]
-}
-
 enum Internship {
     case ios
     case android
@@ -35,4 +31,8 @@ enum Internship {
             return "PM"
         }
     }
+}
+
+extension Internship {
+    static let directionsOfInternship: [Internship] = [.ios, .android, .flutter, .design, .qa, .pm]
 }

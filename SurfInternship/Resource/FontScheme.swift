@@ -8,8 +8,8 @@
 import UIKit
 
 enum FontScheme {
-    static let bold = UIFont(name: "SFProDisplay-Bold", size: 24)
-    static let medium = UIFont(name: "SFProDisplay-Medium", size: 16)
-    static let mediumLight = UIFont(name: "SFProDisplay-Medium", size: 14)
-    static let regular = UIFont(name: "SFProDisplay-Regular", size: 14)
+    static let bold = UIFont.systemFont(ofSize: 24, weight: .bold)
+    static let medium = UIFont.systemFont(ofSize: 16, weight: .medium)
+    static let mediumLight = UIFont.systemFont(ofSize: 14, weight: .medium)
+    static let regular = UIFont.systemFont(ofSize: 14, weight: .regular)
 }

@@ -9,6 +9,14 @@ import UIKit
 
 final class DirectionCell: UICollectionViewCell {
     
+    static let cellId = "cellId"
+    
+    // MARK: - Public Methods
+    
+    func configure(with direction: Internship?) {
+        name.text = direction?.title
+    }
+    
     // MARK: - Local Constants
     
     private let cellCornerRadius: CGFloat = 12
@@ -33,10 +41,19 @@ final class DirectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Overriding 
+    
+    override var isSelected: Bool {
+            didSet {
+                backgroundColor = isSelected ? ColorScheme.black : ColorScheme.gray
+                name.textColor = isSelected ? ColorScheme.white : ColorScheme.black
+            }
+        }
+    
     // MARK: - Setup
     
     private func cellSetup() {
-        backgroundColor = ColorScheme.white
+        backgroundColor = ColorScheme.gray
         layer.cornerRadius = cellCornerRadius
         
         layoutSetup()

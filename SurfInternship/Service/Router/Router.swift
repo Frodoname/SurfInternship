@@ -14,7 +14,6 @@ protocol RouterMain {
 
 protocol RouterProcotol: RouterMain {
     func initialContoller()
-    func showMainViewController()
 }
 
 final class Router: RouterProcotol {
@@ -29,23 +28,9 @@ final class Router: RouterProcotol {
     
     func initialContoller() {
         guard let navigationController,
-              let baseViewController = assemblyBuilder?.createBaseModule(with: self) else {
-            return
-        }
-        navigationController.viewControllers = [baseViewController]
-    }
-    
-    func showMainViewController() {
-        guard let navigationController,
               let mainViewController = assemblyBuilder?.createMainModule(router: self) else {
             return
         }
-                
-        guard let sheet = mainViewController.sheetPresentationController else {
-            return
-        }
-        sheet.detents = [.medium(), .large()]
-        
-        navigationController.present(mainViewController, animated: true)
+        navigationController.viewControllers.append(mainViewController)
     }
 }
