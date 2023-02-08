@@ -7,7 +7,13 @@
 
 import UIKit
 
+protocol ApplyButtonProtocol: AnyObject {
+    func applyButtonTapped()
+}
+
 final class MainView: UIView {
+    
+    weak var delegate: ApplyButtonProtocol?
     
     // MARK: - Local Constants
     
@@ -110,7 +116,11 @@ final class MainView: UIView {
         button.setTitle(Text.buttonTitle.rawValue, for: .normal)
         button.setTitleColor(ColorScheme.white, for: .normal)
         button.backgroundColor = ColorScheme.black
-        button.layer.cornerRadius = CornerRaduis.applyButton.rawValue
+        button.layer.cornerRadius = CornerRaduis.bottomSheet.rawValue
+        button.prepareForAutoLayOut()
+        button.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 219).isActive = true
+        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         return button
     }()
     
@@ -118,6 +128,7 @@ final class MainView: UIView {
         let hStack = UIStackView(arrangedSubviews: [buttonDescriptor, applyButton])
         hStack.axis = .horizontal
         hStack.distribution = .fillProportionally
+        hStack.spacing = 24
         return hStack
     }()
     
@@ -142,10 +153,15 @@ final class MainView: UIView {
     }
     
     private func layoutSetup() {
-        addSubview(scrollView)
-        scrollView.addSubview(contentView)
-        scrollView.prepareForAutoLayOut()
-        contentView.prepareForAutoLayOut()
+        [scrollView, hStack].forEach {
+            addSubview($0)
+            $0.prepareForAutoLayOut()
+        }
+        
+        [contentView].forEach {
+            scrollView.addSubview($0)
+            $0.prepareForAutoLayOut()
+        }
         
         [backgroundImage, bottomSheetView].forEach {
             contentView.addSubview($0)
@@ -183,12 +199,24 @@ final class MainView: UIView {
             vStack.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: Padding.vertical.rawValue),
             vStack.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: Padding.horizontal.rawValue),
             vStack.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -Padding.horizontal.rawValue),
-            vStack.bottomAnchor.constraint(equalTo: bottomSheetView.bottomAnchor) // эта строчка должна будет уехать
+            vStack.bottomAnchor.constraint(equalTo: bottomSheetView.bottomAnchor), // эта строчка должна будет уехать
             
             //            upperCollectionView.topAnchor.constraint(equalTo: vStack.topAnchor, constant: 12),
             //            upperCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor),
             //            upperCollectionView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor),
             //            upperCollectionView.bottomAnchor.constraint(equalTo: bottomSheetView.bottomAnchor, constant: 100) //-500
+            
+            hStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            hStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            hStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -58)
         ])
+    }
+}
+
+@objc
+private
+extension MainView {
+    func didTapButton() {
+        delegate?.applyButtonTapped()
     }
 }

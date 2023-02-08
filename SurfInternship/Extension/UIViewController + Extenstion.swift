@@ -11,7 +11,7 @@ extension UIViewController {
     
     func showAlert(alertText : String, alertMessage : String, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: alertText, message: alertMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Clear", style: .destructive, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Закрыть", style: .destructive, handler: { _ in
             guard let completion else {
                 return
             }

@@ -32,16 +32,33 @@ final class MainPresenter: MainViewInput {
     }
     
     func didTapSendButton() {
-        view?.showAlert(with: "Поздравляем!", "Ваша заявка успешно отправлена!")
+        view?.showAlert(with: "Поздравляем!", "Ваша заявка успешно отправлена")
     }
     
     #warning("убрать force unwrap!")
     
     func didTapCell(at position: Int) {
+        clearSelection()
+        arrayUpdate(with: position)
+        view?.updateCollectionView()
+    }
+}
+
+// MARK: - Private methods
+
+extension MainPresenter {
+    private func clearSelection() {
+        internPositions?.removeAll()
+        internPositions = Internship.directionsOfInternship
+    }
+    
+    private func arrayUpdate(with position: Int) {
         let internship = internPositions![position]
+        print(internPositions)
         internPositions?.remove(at: position)
         let item = Internship(direction: internship.direction, isSelected: !internship.isSelected)
-        internPositions?.insert(item, at: position)
-        view?.updateCollectionView()
+        internPositions?.insert(item, at: /*position*/0)
+        print(internPositions)
+
     }
 }

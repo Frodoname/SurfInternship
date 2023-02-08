@@ -32,6 +32,7 @@ final class MainViewController: UIViewController {
         
         mainView.upperCollectionView.delegate = self
         mainView.upperCollectionView.dataSource = self
+        mainView.delegate = self
     }
     
     private func layoutSetup() {
@@ -49,9 +50,10 @@ final class MainViewController: UIViewController {
     }
 }
 
+// MARK: - CollectionView Delegate & Datasource
+
 extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(presenter.internPositions?.count as Any)
         return presenter.internPositions?.count ?? 0
     }
     
@@ -73,6 +75,8 @@ extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     }
 }
 
+// MARK: - Presenter Extension
+
 extension MainViewController: MainViewOutput {
     func showAlert(with title: String, _ description: String) {
         self.showAlert(alertText: title, alertMessage: description)
@@ -83,6 +87,14 @@ extension MainViewController: MainViewOutput {
             let indexSet = IndexSet(integersIn: 0...0)
             mainView.upperCollectionView.reloadSections(indexSet)
         }
+    }
+}
+
+// MARK: - Actionextension
+
+extension MainViewController: ApplyButtonProtocol {
+    func applyButtonTapped() {
+        presenter.didTapSendButton()
     }
 }
 
