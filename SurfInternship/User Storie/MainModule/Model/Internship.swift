@@ -7,7 +7,12 @@
 
 import Foundation
 
-enum Internship {
+struct Internship {
+    let direction: Direction
+    let isSelected: Bool
+}
+
+enum Direction {
     case ios
     case android
     case flutter
@@ -34,5 +39,10 @@ enum Internship {
 }
 
 extension Internship {
-    static let directionsOfInternship: [Internship] = [.ios, .android, .flutter, .design, .qa, .pm]
+    static let directionsOfInternship: [Internship] = [Internship(direction: .ios, isSelected: false),
+                                                       Internship(direction: .android, isSelected: false),
+                                                       Internship(direction: .flutter, isSelected: false),
+                                                       Internship(direction: .design, isSelected: false),
+                                                        Internship(direction: .qa, isSelected: false),
+                                                        Internship(direction: .pm, isSelected: false)]
 }

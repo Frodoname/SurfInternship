@@ -56,7 +56,6 @@ extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("CONFIG WORKS")
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DirectionCell.cellId, for: indexPath) as? DirectionCell else {
             return UICollectionViewCell()
         }
@@ -68,16 +67,22 @@ extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionVi
         return CGSize(width: 96, height: 44)
     }
     
-    func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        collectionView.indexPathsForSelectedItems?.filter({ $0.section == indexPath.section }).forEach({ collectionView.deselectItem(at: $0, animated: false) })
-        return true
-        
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter.didTapCell(at: indexPath.row)
     }
 }
 
 extension MainViewController: MainViewOutput {
     func showAlert(with title: String, _ description: String) {
         self.showAlert(alertText: title, alertMessage: description)
+    }
+    
+    func updateCollectionView() {
+        mainView.upperCollectionView.performBatchUpdates {
+            let indexSet = IndexSet(integersIn: 0...0)
+            mainView.upperCollectionView.reloadSections(indexSet)
+        }
     }
 }
 

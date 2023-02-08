@@ -9,12 +9,14 @@ import Foundation
 
 protocol MainViewInput: AnyObject {
     func didTapSendButton()
+    func didTapCell(at position: Int)
     var internPositions: [Internship]? { get }
     init(view: MainViewOutput, router: RouterProcotol)
 }
 
 protocol MainViewOutput: AnyObject {
     func showAlert(with title: String, _ description: String)
+    func updateCollectionView()
 }
 
 final class MainPresenter: MainViewInput {
@@ -30,7 +32,16 @@ final class MainPresenter: MainViewInput {
     }
     
     func didTapSendButton() {
-        view?.showAlert(with: "Поздравляем", "Ваша заявка успешно отправлена!")
+        view?.showAlert(with: "Поздравляем!", "Ваша заявка успешно отправлена!")
     }
     
+    #warning("убрать force unwrap!")
+    
+    func didTapCell(at position: Int) {
+        let internship = internPositions![position]
+        internPositions?.remove(at: position)
+        let item = Internship(direction: internship.direction, isSelected: !internship.isSelected)
+        internPositions?.insert(item, at: position)
+        view?.updateCollectionView()
+    }
 }

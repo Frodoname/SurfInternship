@@ -12,8 +12,12 @@ final class MainView: UIView {
     // MARK: - Local Constants
     
     private let image = "backgroundImage"
-    private let cornerRadius: CGFloat = 32
     private let stackSpacing: CGFloat = 12
+    
+    private enum CornerRaduis: CGFloat {
+        case bottomSheet = 32
+        case applyButton = 52
+    }
     
     private enum Padding: CGFloat {
         case vertical = 24
@@ -23,6 +27,8 @@ final class MainView: UIView {
     private enum Text: String {
         case mainLabel = "Стажировка в Surf"
         case descriptionLabel = "Работай над реальными задачами под руководством опытного наставника и получи возможность стать частью команды мечты."
+        case buttonTitle = "Отправить заявку"
+        case buttonDescriptor = "Хочешь к нам?"
     }
     
     // MARK: - UI Elements
@@ -37,7 +43,7 @@ final class MainView: UIView {
         let view = UIView()
         view.backgroundColor = ColorScheme.white
         view.clipsToBounds = true
-        view.layer.cornerRadius = cornerRadius
+        view.layer.cornerRadius = CornerRaduis.applyButton.rawValue
         view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         return view
     }()
@@ -75,9 +81,14 @@ final class MainView: UIView {
     private lazy var vStack: UIStackView = {
         let vStack = UIStackView(arrangedSubviews: [mainLabel, descriptionLabel, upperCollectionView])
         vStack.axis = .vertical
-        vStack.distribution = .fillEqually
+        vStack.distribution = .fillEqually //было .proportionally, заработало после equally
         vStack.spacing = stackSpacing
         return vStack
+    }()
+    
+    private lazy var contentView: UIView = {
+        let view = UIView()
+        return view
     }()
     
     private lazy var scrollView: UIScrollView = {
@@ -86,9 +97,28 @@ final class MainView: UIView {
         return scrollView
     }()
     
-    private lazy var contentView: UIView = {
-        let view = UIView()
-        return view
+    private lazy var buttonDescriptor: UILabel = {
+        let label = UILabel()
+        label.text = Text.buttonDescriptor.rawValue
+        label.textColor = ColorScheme.fontGray
+        label.font = FontScheme.regular
+        return label
+    }()
+    
+    private lazy var applyButton: UIButton = {
+        let button = UIButton()
+        button.setTitle(Text.buttonTitle.rawValue, for: .normal)
+        button.setTitleColor(ColorScheme.white, for: .normal)
+        button.backgroundColor = ColorScheme.black
+        button.layer.cornerRadius = CornerRaduis.applyButton.rawValue
+        return button
+    }()
+    
+    private lazy var hStack: UIStackView = {
+        let hStack = UIStackView(arrangedSubviews: [buttonDescriptor, applyButton])
+        hStack.axis = .horizontal
+        hStack.distribution = .fillProportionally
+        return hStack
     }()
     
     // MARK: - Init
@@ -126,7 +156,9 @@ final class MainView: UIView {
             bottomSheetView.addSubview($0)
             $0.prepareForAutoLayOut()
         }
-        #warning("убрать число в константы на 142 строчке")
+        
+        #warning("убрать число в константы")
+        
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -153,10 +185,10 @@ final class MainView: UIView {
             vStack.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -Padding.horizontal.rawValue),
             vStack.bottomAnchor.constraint(equalTo: bottomSheetView.bottomAnchor) // эта строчка должна будет уехать
             
-//            upperCollectionView.topAnchor.constraint(equalTo: vStack.topAnchor, constant: 12),
-//            upperCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor),
-//            upperCollectionView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor),
-//            upperCollectionView.bottomAnchor.constraint(equalTo: bottomSheetView.bottomAnchor, constant: 100) //-500
+            //            upperCollectionView.topAnchor.constraint(equalTo: vStack.topAnchor, constant: 12),
+            //            upperCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor),
+            //            upperCollectionView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor),
+            //            upperCollectionView.bottomAnchor.constraint(equalTo: bottomSheetView.bottomAnchor, constant: 100) //-500
         ])
     }
 }

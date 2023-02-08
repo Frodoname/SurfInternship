@@ -8,27 +8,29 @@
 import UIKit
 
 final class DirectionCell: UICollectionViewCell {
-    
-    static let cellId = "cellId"
-    
+        
     // MARK: - Public Methods
-    
-    func configure(with direction: Internship?) {
-        name.text = direction?.title
+    #warning("убрать force unwrap!")
+    func configure(with internship: Internship?) {
+        name.text = internship?.direction.title
+        backgroundColor = internship!.isSelected ? ColorScheme.black : ColorScheme.gray
+        name.textColor = internship!.isSelected ? ColorScheme.white : ColorScheme.black
     }
     
-    // MARK: - Local Constants
+    // MARK: - Constants
     
+    static let cellId = "cellId"
     private let cellCornerRadius: CGFloat = 12
-            
+    
     // MARK: - UI Elements
     
     private lazy var name: UILabel = {
-        $0.font = FontScheme.regular
-        $0.textColor = ColorScheme.black
-        $0.textAlignment = .center
-        return $0
-    }(UILabel())
+        let label = UILabel()
+        label.font = FontScheme.regular
+        label.textColor = ColorScheme.black
+        label.textAlignment = .center
+        return label
+    }()
     
     // MARK: - Initializer
     
@@ -41,14 +43,14 @@ final class DirectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Overriding 
+    // MARK: - Overriding
     
-    override var isSelected: Bool {
-            didSet {
-                backgroundColor = isSelected ? ColorScheme.black : ColorScheme.gray
-                name.textColor = isSelected ? ColorScheme.white : ColorScheme.black
-            }
-        }
+//    override var isSelected: Bool {
+//        didSet {
+//            backgroundColor = isSelected ? ColorScheme.black : ColorScheme.gray
+//            name.textColor = isSelected ? ColorScheme.white : ColorScheme.black
+//        }
+//    }
     
     // MARK: - Setup
     
