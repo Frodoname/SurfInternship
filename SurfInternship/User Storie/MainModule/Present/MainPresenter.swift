@@ -54,11 +54,9 @@ extension MainPresenter {
     
     private func arrayUpdate(with position: Int) {
         let internship = internPositions![position]
-        print(internPositions)
         internPositions?.remove(at: position)
         let item = Internship(direction: internship.direction, isSelected: !internship.isSelected)
-        internPositions?.insert(item, at: /*position*/0)
-        print(internPositions)
+        internPositions?.insert(item, at: position)
 
     }
 }
