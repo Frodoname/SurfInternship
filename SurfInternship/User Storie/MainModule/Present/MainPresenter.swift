@@ -28,7 +28,7 @@ final class MainPresenter: MainViewInput {
     init(view: MainViewOutput, router: RouterProcotol) {
         self.view = view
         self.router = router
-        internPositions = Internship.directionsOfInternship
+        initSetup()
     }
     
     func didTapSendButton() {
@@ -58,5 +58,9 @@ extension MainPresenter {
         let item = Internship(direction: internship.direction, isSelected: !internship.isSelected)
         internPositions?.insert(item, at: position)
 
+    }
+    
+    private func initSetup() {
+        internPositions = Internship.directionsOfInternship
     }
 }
