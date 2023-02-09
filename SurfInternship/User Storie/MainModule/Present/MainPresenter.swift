@@ -9,21 +9,25 @@ import Foundation
 
 protocol MainViewInput: AnyObject {
     func didTapSendButton()
-    func didTapCell(at position: Int)
-    var internPositions: [Internship]? { get }
+    func didTapCellAtUpperCollectionView(at position: Int)
+    func didTapCellAtDownCollectionView(at position: Int)
+    var upperInternPositions: [Internship]? { get }
+    var downInternPositions: [Internship]? { get }
     init(view: MainViewOutput, router: RouterProcotol)
 }
 
 protocol MainViewOutput: AnyObject {
     func showAlert(with title: String, _ description: String)
-    func updateCollectionView()
+    func updateUpperCollectionView()
+    func updateDownCollectionView()
 }
 
 final class MainPresenter: MainViewInput {
     
     weak var view: MainViewOutput?
     var router: RouterProcotol?
-    var internPositions: [Internship]?
+    var upperInternPositions: [Internship]?
+    var downInternPositions: [Internship]?
     
     init(view: MainViewOutput, router: RouterProcotol) {
         self.view = view
@@ -37,10 +41,34 @@ final class MainPresenter: MainViewInput {
     
     #warning("убрать force unwrap!")
     
-    func didTapCell(at position: Int) {
-        clearSelection()
-        arrayUpdate(with: position)
-        view?.updateCollectionView()
+    func didTapCellAtUpperCollectionView(at position: Int) {
+        let internship = upperInternPositions![position]
+        upperInternPositions?.removeAll()
+        upperInternPositions = Internship.directionsOfInternship
+        
+        let item = Internship(direction: internship.direction, isSelected: !internship.isSelected)
+        
+        if let index = upperInternPositions?.firstIndex(where: { $0 == internship }) {
+            upperInternPositions?[index] = item
+            upperInternPositions?.swapAt(index, 0)
+        }
+        
+        view?.updateUpperCollectionView()
+    }
+    
+    func didTapCellAtDownCollectionView(at position: Int) {
+        let internship = downInternPositions![position]
+        downInternPositions?.removeAll()
+        downInternPositions = Internship.directionsOfInternship
+        
+        let item = Internship(direction: internship.direction, isSelected: !internship.isSelected)
+        
+        if let index = downInternPositions?.firstIndex(where: { $0 == internship }) {
+            downInternPositions?[index] = item
+            downInternPositions?.swapAt(index, 0)
+        }
+        
+        view?.updateDownCollectionView()
     }
 }
 
@@ -48,19 +76,20 @@ final class MainPresenter: MainViewInput {
 
 extension MainPresenter {
     private func clearSelection() {
-        internPositions?.removeAll()
-        internPositions = Internship.directionsOfInternship
+        upperInternPositions?.removeAll()
+        upperInternPositions = Internship.directionsOfInternship
     }
     
-    private func arrayUpdate(with position: Int) {
-        let internship = internPositions![position]
-        internPositions?.remove(at: position)
+    private func arrayUpdate(for array: inout [Internship]?, with position: Int) {
+        let internship = upperInternPositions![position]
+        upperInternPositions?.remove(at: position)
         let item = Internship(direction: internship.direction, isSelected: !internship.isSelected)
-        internPositions?.insert(item, at: position)
+        upperInternPositions?.insert(item, at: position)
 
     }
     
     private func initSetup() {
-        internPositions = Internship.directionsOfInternship
+        upperInternPositions = Internship.directionsOfInternship
+        downInternPositions = Internship.directionsOfInternship
     }
 }

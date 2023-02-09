@@ -22,6 +22,11 @@
 		89C54EDA29915A7400B84960 /* Assembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54ED929915A7400B84960 /* Assembly.swift */; };
 		89C54EE329916C3F00B84960 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EE229916C3E00B84960 /* MainView.swift */; };
 		89C54EE52992E47C00B84960 /* UIViewController + Extenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EE42992E47C00B84960 /* UIViewController + Extenstion.swift */; };
+		89C54EEE29940D3F00B84960 /* Internship + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EED29940D3F00B84960 /* Internship + Extension.swift */; };
+		89C54EF129955E0300B84960 /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EF029955E0300B84960 /* BottomSheetView.swift */; };
+		89C54EF329957D8800B84960 /* WrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EF229957D8800B84960 /* WrapperView.swift */; };
+		89C54EF52995837400B84960 /* ApplyButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EF42995837400B84960 /* ApplyButtonView.swift */; };
+		89C54EF72995849100B84960 /* TextScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C54EF62995849100B84960 /* TextScheme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +47,11 @@
 		89C54ED929915A7400B84960 /* Assembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assembly.swift; sourceTree = "<group>"; };
 		89C54EE229916C3E00B84960 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		89C54EE42992E47C00B84960 /* UIViewController + Extenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Extenstion.swift"; sourceTree = "<group>"; };
+		89C54EED29940D3F00B84960 /* Internship + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Internship + Extension.swift"; sourceTree = "<group>"; };
+		89C54EF029955E0300B84960 /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
+		89C54EF229957D8800B84960 /* WrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WrapperView.swift; sourceTree = "<group>"; };
+		89C54EF42995837400B84960 /* ApplyButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplyButtonView.swift; sourceTree = "<group>"; };
+		89C54EF62995849100B84960 /* TextScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextScheme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +110,7 @@
 				89C54E922990069300B84960 /* Info.plist */,
 				89C54ECC299140ED00B84960 /* ColorScheme.swift */,
 				89C54ECE2991428E00B84960 /* FontScheme.swift */,
+				89C54EF62995849100B84960 /* TextScheme.swift */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -150,8 +161,8 @@
 		89C54EC629913E5200B84960 /* SubView */ = {
 			isa = PBXGroup;
 			children = (
-				89C54EC729913E8400B84960 /* DirectionCell.swift */,
 				89C54EE229916C3E00B84960 /* MainView.swift */,
+				89C54EEF29955DED00B84960 /* SubView */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -161,6 +172,7 @@
 			children = (
 				89C54ECA2991404C00B84960 /* UIView + Extenstion.swift */,
 				89C54EE42992E47C00B84960 /* UIViewController + Extenstion.swift */,
+				89C54EED29940D3F00B84960 /* Internship + Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -188,6 +200,17 @@
 				89C54ED929915A7400B84960 /* Assembly.swift */,
 			);
 			path = Assembly;
+			sourceTree = "<group>";
+		};
+		89C54EEF29955DED00B84960 /* SubView */ = {
+			isa = PBXGroup;
+			children = (
+				89C54EF029955E0300B84960 /* BottomSheetView.swift */,
+				89C54EC729913E8400B84960 /* DirectionCell.swift */,
+				89C54EF229957D8800B84960 /* WrapperView.swift */,
+				89C54EF42995837400B84960 /* ApplyButtonView.swift */,
+			);
+			path = SubView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,16 +284,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				89C54ECD299140ED00B84960 /* ColorScheme.swift in Sources */,
+				89C54EEE29940D3F00B84960 /* Internship + Extension.swift in Sources */,
 				89C54EE329916C3F00B84960 /* MainView.swift in Sources */,
 				89C54EDA29915A7400B84960 /* Assembly.swift in Sources */,
 				89C54E892990069100B84960 /* MainViewController.swift in Sources */,
 				89C54ED7299159CA00B84960 /* Router.swift in Sources */,
+				89C54EF129955E0300B84960 /* BottomSheetView.swift in Sources */,
 				89C54E852990069100B84960 /* AppDelegate.swift in Sources */,
+				89C54EF52995837400B84960 /* ApplyButtonView.swift in Sources */,
+				89C54EF329957D8800B84960 /* WrapperView.swift in Sources */,
 				89C54ECB2991404C00B84960 /* UIView + Extenstion.swift in Sources */,
 				89C54E872990069100B84960 /* SceneDelegate.swift in Sources */,
 				89C54ECF2991428E00B84960 /* FontScheme.swift in Sources */,
 				89C54EE52992E47C00B84960 /* UIViewController + Extenstion.swift in Sources */,
 				89C54EC829913E8400B84960 /* DirectionCell.swift in Sources */,
+				89C54EF72995849100B84960 /* TextScheme.swift in Sources */,
 				89C54EA2299018D300B84960 /* Internship.swift in Sources */,
 				89C54EA029900AE100B84960 /* MainPresenter.swift in Sources */,
 			);

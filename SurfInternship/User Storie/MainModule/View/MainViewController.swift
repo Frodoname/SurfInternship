@@ -30,8 +30,10 @@ final class MainViewController: UIViewController {
     private func viewDidLoadSetup() {
         layoutSetup()
         
-        mainView.upperCollectionView.delegate = self
-        mainView.upperCollectionView.dataSource = self
+        mainView.bottomSheetView.upperCollectionView.delegate = self
+        mainView.bottomSheetView.upperCollectionView.dataSource = self
+        mainView.bottomSheetView.downCollectionView.delegate = self
+        mainView.bottomSheetView.downCollectionView.dataSource = self
         mainView.delegate = self
     }
     
@@ -50,28 +52,63 @@ final class MainViewController: UIViewController {
     }
 }
 
-// MARK: - CollectionView Delegate & Datasource
+// MARK: - Delegate & Datasource
 
-extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource, UICollectionViewDelegate {
+extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return presenter.internPositions?.count ?? 0
+        switch collectionView {
+        case mainView.bottomSheetView.upperCollectionView:
+            return presenter.upperInternPositions?.count ?? 0
+        case mainView.bottomSheetView.downCollectionView:
+            return presenter.downInternPositions?.count ?? 0
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DirectionCell.cellId, for: indexPath) as? DirectionCell else {
             return UICollectionViewCell()
         }
-        cell.configure(with: presenter.internPositions?[indexPath.row])
+        switch collectionView {
+        case mainView.bottomSheetView.upperCollectionView:
+            cell.configure(with: presenter.upperInternPositions?[indexPath.row])
+        case mainView.bottomSheetView.downCollectionView:
+            cell.configure(with: presenter.downInternPositions?[indexPath.row])
+        default:
+            break
+        }
         return cell
     }
     
+    #warning("сделать адаптивный по размеру ячейку")
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 96, height: 44)
+        switch collectionView {
+        case mainView.bottomSheetView.upperCollectionView:
+            return CGSize(width: 96, height: 44)
+        case mainView.bottomSheetView.downCollectionView:
+            let item = presenter.downInternPositions![indexPath.row].direction.title
+            let itemWidth = item.size(withAttributes: [NSAttributedString.Key.font: FontScheme.regular]).width + 48
+            return CGSize(width: itemWidth, height: 44)
+        default:
+            return CGSize(width: 96, height: 44)
+        }
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        presenter.didTapCell(at: indexPath.row)
+        switch collectionView {
+        case mainView.bottomSheetView.upperCollectionView:
+            presenter.didTapCellAtUpperCollectionView(at: indexPath.row)
+        case mainView.bottomSheetView.downCollectionView:
+            presenter.didTapCellAtDownCollectionView(at: indexPath.row)
+        default:
+            break
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
     }
 }
 
@@ -82,15 +119,24 @@ extension MainViewController: MainViewOutput {
         self.showAlert(alertText: title, alertMessage: description)
     }
     
-    func updateCollectionView() {
-        mainView.upperCollectionView.performBatchUpdates {
+    func updateUpperCollectionView() {
+        mainView.bottomSheetView.upperCollectionView.performBatchUpdates {
             let indexSet = IndexSet(integersIn: 0...0)
-            mainView.upperCollectionView.reloadSections(indexSet)
+            mainView.bottomSheetView.upperCollectionView.reloadSections(indexSet)
+            let indexPath = IndexPath(row: 0, section: 0)
+            mainView.bottomSheetView.upperCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+        }
+    }
+    
+    func updateDownCollectionView() {
+        mainView.bottomSheetView.downCollectionView.performBatchUpdates {
+            let indexSet = IndexSet(integersIn: 0...0)
+            mainView.bottomSheetView.downCollectionView.reloadSections(indexSet)
         }
     }
 }
 
-// MARK: - Actionextension
+// MARK: - Action Extension
 
 extension MainViewController: ApplyButtonProtocol {
     func applyButtonTapped() {

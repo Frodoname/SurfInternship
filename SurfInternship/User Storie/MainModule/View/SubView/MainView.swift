@@ -18,23 +18,15 @@ final class MainView: UIView {
     // MARK: - Local Constants
     
     private let image = "backgroundImage"
-    private let stackSpacing: CGFloat = 12
     
-    private enum CornerRaduis: CGFloat {
-        case bottomSheet = 32
-        case applyButton = 52
+    private enum ButtonSize: CGFloat {
+        case width = 219
+        case height = 60
     }
     
     private enum Padding: CGFloat {
         case vertical = 24
         case horizontal = 20
-    }
-    
-    private enum Text: String {
-        case mainLabel = "Стажировка в Surf"
-        case descriptionLabel = "Работай над реальными задачами под руководством опытного наставника и получи возможность стать частью команды мечты."
-        case buttonTitle = "Отправить заявку"
-        case buttonDescriptor = "Хочешь к нам?"
     }
     
     // MARK: - UI Elements
@@ -45,52 +37,7 @@ final class MainView: UIView {
         return imageView
     }()
     
-    private lazy var bottomSheetView: UIView = {
-        let view = UIView()
-        view.backgroundColor = ColorScheme.white
-        view.clipsToBounds = true
-        view.layer.cornerRadius = CornerRaduis.applyButton.rawValue
-        view.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        return view
-    }()
-    
-    private lazy var mainLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontScheme.bold
-        label.textAlignment = .left
-        label.textColor = ColorScheme.black
-        label.text = Text.mainLabel.rawValue
-        return label
-    }()
-    
-    private lazy var descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.font = FontScheme.regular
-        label.textColor = ColorScheme.fontGray
-        label.numberOfLines = 0
-        label.textAlignment = .left
-        label.text = Text.descriptionLabel.rawValue
-        return label
-    }()
-    
-    lazy var upperCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.backgroundColor = ColorScheme.white
-        collectionView.register(DirectionCell.self, forCellWithReuseIdentifier: DirectionCell.cellId)
-        collectionView.backgroundColor = .clear
-        return collectionView
-    }()
-    
-    private lazy var vStack: UIStackView = {
-        let vStack = UIStackView(arrangedSubviews: [mainLabel, descriptionLabel, upperCollectionView])
-        vStack.axis = .vertical
-        vStack.distribution = .fillEqually //было .proportionally, заработало после equally
-        vStack.spacing = stackSpacing
-        return vStack
-    }()
+    lazy var bottomSheetView: BottomSheetView = BottomSheetView()
     
     private lazy var contentView: UIView = {
         let view = UIView()
@@ -103,34 +50,7 @@ final class MainView: UIView {
         return scrollView
     }()
     
-    private lazy var buttonDescriptor: UILabel = {
-        let label = UILabel()
-        label.text = Text.buttonDescriptor.rawValue
-        label.textColor = ColorScheme.fontGray
-        label.font = FontScheme.regular
-        return label
-    }()
-    
-    private lazy var applyButton: UIButton = {
-        let button = UIButton()
-        button.setTitle(Text.buttonTitle.rawValue, for: .normal)
-        button.setTitleColor(ColorScheme.white, for: .normal)
-        button.backgroundColor = ColorScheme.black
-        button.layer.cornerRadius = CornerRaduis.bottomSheet.rawValue
-        button.prepareForAutoLayOut()
-        button.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 219).isActive = true
-        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var hStack: UIStackView = {
-        let hStack = UIStackView(arrangedSubviews: [buttonDescriptor, applyButton])
-        hStack.axis = .horizontal
-        hStack.distribution = .fillProportionally
-        hStack.spacing = 24
-        return hStack
-    }()
+    private lazy var applyButtonView: ApplyButtonView = ApplyButtonView()
     
     // MARK: - Init
     
@@ -150,10 +70,11 @@ final class MainView: UIView {
         scrollView.contentInsetAdjustmentBehavior = .never
         
         layoutSetup()
+        applyButtonView.applyButton.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     }
     
     private func layoutSetup() {
-        [scrollView, hStack].forEach {
+        [scrollView].forEach {
             addSubview($0)
             $0.prepareForAutoLayOut()
         }
@@ -163,17 +84,13 @@ final class MainView: UIView {
             $0.prepareForAutoLayOut()
         }
         
-        [backgroundImage, bottomSheetView].forEach {
+        [backgroundImage, bottomSheetView, applyButtonView].forEach {
             contentView.addSubview($0)
             $0.prepareForAutoLayOut()
         }
+    
         
-        [vStack, /*upperCollectionView*/].forEach {
-            bottomSheetView.addSubview($0)
-            $0.prepareForAutoLayOut()
-        }
-        
-        #warning("убрать число в константы")
+#warning("убрать число в константы")
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
@@ -196,19 +113,9 @@ final class MainView: UIView {
             bottomSheetView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             bottomSheetView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            vStack.topAnchor.constraint(equalTo: bottomSheetView.topAnchor, constant: Padding.vertical.rawValue),
-            vStack.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor, constant: Padding.horizontal.rawValue),
-            vStack.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor, constant: -Padding.horizontal.rawValue),
-            vStack.bottomAnchor.constraint(equalTo: bottomSheetView.bottomAnchor), // эта строчка должна будет уехать
-            
-            //            upperCollectionView.topAnchor.constraint(equalTo: vStack.topAnchor, constant: 12),
-            //            upperCollectionView.leadingAnchor.constraint(equalTo: bottomSheetView.leadingAnchor),
-            //            upperCollectionView.trailingAnchor.constraint(equalTo: bottomSheetView.trailingAnchor),
-            //            upperCollectionView.bottomAnchor.constraint(equalTo: bottomSheetView.bottomAnchor, constant: 100) //-500
-            
-            hStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            hStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            hStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -58)
+            applyButtonView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            applyButtonView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            applyButtonView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -58)
         ])
     }
 }

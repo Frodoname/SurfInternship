@@ -46,3 +46,4 @@ extension Internship {
                                                         Internship(direction: .qa, isSelected: false),
                                                         Internship(direction: .pm, isSelected: false)]
 }
+
