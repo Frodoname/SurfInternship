@@ -35,6 +35,8 @@ final class BottomSheetView: UIView {
         return label
     }()
     
+    private lazy var mainLabelWrapperView: WrapperView = WrapperView(view: mainLabel)
+    
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = FontScheme.regular
@@ -44,9 +46,7 @@ final class BottomSheetView: UIView {
         label.text = TextScheme.descriptionLabel
         return label
     }()
-    
-    private lazy var mainLabelWrapperView: WrapperView = WrapperView(view: mainLabel)
-    
+        
     private lazy var descriptionLabelWrapperView: WrapperView = WrapperView(view: descriptionLabel)
     
     lazy var upperCollectionView: UICollectionView = {
@@ -83,19 +83,10 @@ final class BottomSheetView: UIView {
     private lazy var vStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [mainLabelWrapperView, descriptionLabelWrapperView, upperCollectionView, secondDescriptionLabelWrapperView, downCollectionView])
         stack.axis = .vertical
-        stack.distribution = .fillProportionally
         stack.spacing = StackSpacing.small
         stack.setCustomSpacing(StackSpacing.big, after: upperCollectionView)
         return stack
     }()
-    
-    //    private lazy var vStack: UIStackView = {
-    //        let vStack = UIStackView(arrangedSubviews: [])
-    //        vStack.axis = .vertical
-    //        vStack.distribution = .fillEqually //было .proportionally, заработало после equally
-    //        vStack.spacing = stackSpacing
-    //        return vStack
-    //    }()
     
     // MARK: - Initi
     
@@ -115,17 +106,23 @@ final class BottomSheetView: UIView {
         layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         layer.cornerRadius = cornerRadius
         clipsToBounds = true
-        
         layoutSetup()
     }
     
     private func layoutSetup() {
+        [upperCollectionView, downCollectionView].forEach {
+            $0.prepareForAutoLayOut()
+        }
+        
         [vStack].forEach {
             addSubview($0)
             $0.prepareForAutoLayOut()
         }
         
         NSLayoutConstraint.activate([
+            upperCollectionView.heightAnchor.constraint(equalToConstant: 44),
+            downCollectionView.heightAnchor.constraint(equalToConstant: 100),
+            
             vStack.topAnchor.constraint(equalTo: topAnchor, constant: Padding.vertical),
             vStack.leadingAnchor.constraint(equalTo: leadingAnchor),
             vStack.trailingAnchor.constraint(equalTo: trailingAnchor),

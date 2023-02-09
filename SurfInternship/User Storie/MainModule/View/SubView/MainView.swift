@@ -19,14 +19,9 @@ final class MainView: UIView {
     
     private let image = "backgroundImage"
     
-    private enum ButtonSize: CGFloat {
-        case width = 219
-        case height = 60
-    }
-    
-    private enum Padding: CGFloat {
-        case vertical = 24
-        case horizontal = 20
+    private enum Padding {
+        static let vertica: CGFloat = 24
+        static let bottomSheet: CGFloat = 100
     }
     
     // MARK: - UI Elements
@@ -108,7 +103,7 @@ final class MainView: UIView {
             backgroundImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            bottomSheetView.topAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: -100),
+            bottomSheetView.topAnchor.constraint(equalTo: backgroundImage.bottomAnchor, constant: -Padding.bottomSheet),
             bottomSheetView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             bottomSheetView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             bottomSheetView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
