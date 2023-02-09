@@ -56,31 +56,17 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch collectionView {
-        case mainView.bottomSheetView.upperCollectionView:
-            return presenter.upperInternPositions?.count ?? 0
-        case mainView.bottomSheetView.downCollectionView:
-            return presenter.downInternPositions?.count ?? 0
-        default:
-            return 0
-        }
+        return numberOfItems(for: collectionView)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DirectionCell.cellId, for: indexPath) as? DirectionCell else {
             return UICollectionViewCell()
         }
-        switch collectionView {
-        case mainView.bottomSheetView.upperCollectionView:
-            cell.configure(with: presenter.upperInternPositions?[indexPath.row])
-        case mainView.bottomSheetView.downCollectionView:
-            cell.configure(with: presenter.downInternPositions?[indexPath.row])
-        default:
-            break
-        }
+        configureCell(for: collectionView, cell, indexPath.row)
         return cell
     }
-    
+        
     #warning("сделать адаптивный по размеру ячейку")
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -132,6 +118,32 @@ extension MainViewController: MainViewOutput {
         mainView.bottomSheetView.downCollectionView.performBatchUpdates {
             let indexSet = IndexSet(integersIn: 0...0)
             mainView.bottomSheetView.downCollectionView.reloadSections(indexSet)
+        }
+    }
+}
+
+// MARK: - Private Methods
+
+extension MainViewController {
+    private func numberOfItems(for collectionView: UICollectionView) -> Int {
+        switch collectionView {
+        case mainView.bottomSheetView.upperCollectionView:
+            return presenter.upperInternPositions?.count ?? 0
+        case mainView.bottomSheetView.downCollectionView:
+            return presenter.downInternPositions?.count ?? 0
+        default:
+            return 0
+        }
+    }
+    
+    private func configureCell(for collectionView: UICollectionView, _ cell: DirectionCell, _ position: Int) {
+        switch collectionView {
+        case mainView.bottomSheetView.upperCollectionView:
+            cell.configure(with: presenter.upperInternPositions?[position])
+        case mainView.bottomSheetView.downCollectionView:
+            cell.configure(with: presenter.downInternPositions?[position])
+        default:
+            break
         }
     }
 }

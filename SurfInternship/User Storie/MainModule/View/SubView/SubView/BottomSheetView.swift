@@ -13,6 +13,11 @@ final class BottomSheetView: UIView {
     
     private let cornerRadius: CGFloat = 32
     
+    private enum Height {
+        static let upperCollectionView: CGFloat = 44
+        static let downCollectionView: CGFloat = 100
+    }
+    
     private enum Padding {
         static let vertical: CGFloat = 24
         static let horizontal: CGFloat = 20
@@ -120,8 +125,8 @@ final class BottomSheetView: UIView {
         }
         
         NSLayoutConstraint.activate([
-            upperCollectionView.heightAnchor.constraint(equalToConstant: 44),
-            downCollectionView.heightAnchor.constraint(equalToConstant: 100),
+            upperCollectionView.heightAnchor.constraint(equalToConstant: Height.upperCollectionView),
+            downCollectionView.heightAnchor.constraint(equalToConstant: Height.downCollectionView),
             
             vStack.topAnchor.constraint(equalTo: topAnchor, constant: Padding.vertical),
             vStack.leadingAnchor.constraint(equalTo: leadingAnchor),

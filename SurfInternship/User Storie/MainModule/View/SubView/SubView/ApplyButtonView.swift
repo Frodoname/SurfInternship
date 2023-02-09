@@ -9,6 +9,8 @@ import UIKit
 
 final class ApplyButtonView: UIStackView {
     
+    // MARK: - Local Constants
+    
     private let spacingValue: CGFloat = 24
     private let cornerRadius: CGFloat = 32
     
@@ -37,7 +39,6 @@ final class ApplyButtonView: UIStackView {
         button.prepareForAutoLayOut()
         button.heightAnchor.constraint(equalToConstant: ButtonSize.height).isActive = true
         button.widthAnchor.constraint(equalToConstant: ButtonSize.width).isActive = true
-//        button.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
         return button
     }()
     
