@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ApplyButtonView: UIStackView {
+final class ApplyButtonView: UIView {
     
     // MARK: - Local Constants
     
@@ -17,6 +17,11 @@ final class ApplyButtonView: UIStackView {
     private enum ButtonSize {
         static let width: CGFloat = 219
         static let height: CGFloat = 60
+    }
+    
+    private enum Padding {
+        static let horizontal: CGFloat = 20
+        static let vertical: CGFloat = 58
     }
     
     // MARK: - UI Elements
@@ -42,11 +47,19 @@ final class ApplyButtonView: UIStackView {
         return button
     }()
     
+    private lazy var hStack: UIStackView = {
+       let stackView = UIStackView(arrangedSubviews: [buttonDescriptor, applyButton])
+        stackView.axis = .horizontal
+        stackView.distribution = .fillProportionally
+        stackView.spacing = spacingValue
+        return stackView
+    }()
+    
     // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        layoutSetup()
+        viewSetup()
     }
     
     required init(coder: NSCoder) {
@@ -55,11 +68,22 @@ final class ApplyButtonView: UIStackView {
     
     // MARK: - Private Methods
     
+    private func viewSetup() {
+        backgroundColor = ColorScheme.white
+        layoutSetup()
+    }
+    
     private func layoutSetup() {
-        spacing = spacingValue
-        distribution = .fillProportionally
-        axis = .horizontal
-        addArrangedSubview(buttonDescriptor)
-        addArrangedSubview(applyButton)
+        [hStack].forEach {
+            addSubview($0)
+            $0.prepareForAutoLayOut()
+            
+            NSLayoutConstraint.activate([
+                hStack.topAnchor.constraint(equalTo: topAnchor),
+                hStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Padding.horizontal),
+                hStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Padding.horizontal),
+                hStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Padding.vertical)
+            ])
+        }
     }
 }

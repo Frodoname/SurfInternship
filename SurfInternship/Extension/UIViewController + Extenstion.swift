@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIViewController {
-    
     func showAlert(alertText : String, alertMessage : String, completion: (() -> Void)? = nil) {
         let alert = UIAlertController(title: alertText, message: alertMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Закрыть", style: .destructive, handler: { _ in

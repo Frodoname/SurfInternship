@@ -60,7 +60,7 @@ final class BottomSheetView: UIView {
         
     private lazy var descriptionLabelWrapperView: WrapperView = WrapperView(view: descriptionLabel)
     
-    lazy var upperCollectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
@@ -72,20 +72,11 @@ final class BottomSheetView: UIView {
         return collectionView
     }()
     
-    private lazy var secondDescriptionLabel: UILabel = {
-        let label = UILabel()
-        label.text = TextScheme.secondDescription
-        label.numberOfLines = 0
-        label.font = FontScheme.regular
-        label.textColor = ColorScheme.fontGray
-        return label
-    }()
-    
     private lazy var vStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [mainLabelWrapperView, descriptionLabelWrapperView, upperCollectionView])
+        let stack = UIStackView(arrangedSubviews: [mainLabelWrapperView, descriptionLabelWrapperView, collectionView])
         stack.axis = .vertical
         stack.spacing = StackSpacing.small
-        stack.setCustomSpacing(StackSpacing.big, after: upperCollectionView)
+        stack.setCustomSpacing(StackSpacing.big, after: collectionView)
         return stack
     }()
     
@@ -111,7 +102,7 @@ final class BottomSheetView: UIView {
     }
     
     private func layoutSetup() {
-        [upperCollectionView].forEach {
+        [collectionView].forEach {
             $0.prepareForAutoLayOut()
         }
         
@@ -121,7 +112,7 @@ final class BottomSheetView: UIView {
         }
         
         NSLayoutConstraint.activate([
-            upperCollectionView.heightAnchor.constraint(equalToConstant: Height.collectionView),
+            collectionView.heightAnchor.constraint(equalToConstant: Height.collectionView),
             
             vStack.topAnchor.constraint(equalTo: topAnchor, constant: Padding.vertical),
             vStack.leadingAnchor.constraint(equalTo: leadingAnchor),

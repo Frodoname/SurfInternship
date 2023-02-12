@@ -25,6 +25,11 @@ final class MainPresenter: MainViewInput {
     var router: RouterProcotol?
     var internPositions: [Internship]?
     
+    private enum Text {
+        static let alertTitle = "Поздравляем!"
+        static let alertMessage = "Ваша заявка успешно отправлена"
+    }
+    
     init(view: MainViewOutput, router: RouterProcotol) {
         self.view = view
         self.router = router
@@ -32,7 +37,7 @@ final class MainPresenter: MainViewInput {
     }
     
     func didTapSendButton() {
-        view?.showAlert(with: "Поздравляем!", "Ваша заявка успешно отправлена")
+        view?.showAlert(with: Text.alertTitle, Text.alertMessage)
     }
         
     func didTapCell(at position: Int) {

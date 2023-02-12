@@ -11,6 +11,8 @@ final class MainViewController: UIViewController {
     
     var presenter: MainViewInput!
     
+    // MARK: - UI Elements
+    
     private lazy var mainView = MainView()
     
     // MARK: - Local Constants
@@ -38,8 +40,8 @@ final class MainViewController: UIViewController {
     private func viewDidLoadSetup() {
         layoutSetup()
         
-        mainView.bottomSheetView.upperCollectionView.delegate = self
-        mainView.bottomSheetView.upperCollectionView.dataSource = self
+        mainView.bottomSheetView.collectionView.delegate = self
+        mainView.bottomSheetView.collectionView.dataSource = self
         mainView.delegate = self
     }
     
@@ -90,11 +92,11 @@ extension MainViewController: MainViewOutput {
     }
     
     func updateCollectionView() {
-        mainView.bottomSheetView.upperCollectionView.performBatchUpdates {
+        mainView.bottomSheetView.collectionView.performBatchUpdates {
             let indexSet = IndexSet(integersIn: 0...0)
-            mainView.bottomSheetView.upperCollectionView.reloadSections(indexSet)
+            mainView.bottomSheetView.collectionView.reloadSections(indexSet)
             let indexPath = IndexPath(row: 0, section: 0)
-            mainView.bottomSheetView.upperCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
+            mainView.bottomSheetView.collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
         }
     }
 }

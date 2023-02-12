@@ -106,9 +106,9 @@ final class MainView: UIView {
             bottomSheetView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             bottomSheetView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            applyButtonView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Padding.horizontalButton),
-            applyButtonView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Padding.horizontalButton),
-            applyButtonView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Padding.verticalButton)
+            applyButtonView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            applyButtonView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            applyButtonView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }

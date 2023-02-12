@@ -12,7 +12,6 @@ protocol AssemblyProtocol {
 }
 
 final class Assembly: AssemblyProtocol {
-    
     func createMainModule(router: RouterProcotol) -> UIViewController {
         let view = MainViewController()
         let presenter = MainPresenter(view: view, router: router)

@@ -41,6 +41,5 @@ final class WrapperView: UIView {
             view.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -padding),
             view.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-        
     }
 }
