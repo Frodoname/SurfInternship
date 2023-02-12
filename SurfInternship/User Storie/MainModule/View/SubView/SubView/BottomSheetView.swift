@@ -10,12 +10,11 @@ import UIKit
 final class BottomSheetView: UIView {
     
     // MARK: - Local Constants
-    
+            
     private let cornerRadius: CGFloat = 32
     
     private enum Height {
-        static let upperCollectionView: CGFloat = 44
-        static let downCollectionView: CGFloat = 100
+        static let collectionView: CGFloat = 44
     }
     
     private enum Padding {
@@ -27,6 +26,13 @@ final class BottomSheetView: UIView {
     private enum StackSpacing {
         static let small: CGFloat = 12
         static let big: CGFloat = 24
+    }
+    
+    private enum EdgeInset {
+        static let top: CGFloat = 0
+        static let left: CGFloat = 20
+        static let right: CGFloat = 0
+        static let bottom: CGFloat = 0
     }
     
     // MARK: - UI Elements
@@ -61,6 +67,8 @@ final class BottomSheetView: UIView {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(DirectionCell.self, forCellWithReuseIdentifier: DirectionCell.cellId)
         collectionView.backgroundColor = .clear
+        collectionView.contentInset = UIEdgeInsets(top: EdgeInset.top, left: EdgeInset.left,
+                                                   bottom: EdgeInset.bottom, right: EdgeInset.right)
         return collectionView
     }()
     
@@ -73,27 +81,15 @@ final class BottomSheetView: UIView {
         return label
     }()
     
-    private lazy var secondDescriptionLabelWrapperView: WrapperView = WrapperView(view: secondDescriptionLabel)
-    
-    lazy var downCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .horizontal
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.showsHorizontalScrollIndicator = false
-        collectionView.register(DirectionCell.self, forCellWithReuseIdentifier: DirectionCell.cellId)
-        collectionView.backgroundColor = .clear
-        return collectionView
-    }()
-    
     private lazy var vStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [mainLabelWrapperView, descriptionLabelWrapperView, upperCollectionView, secondDescriptionLabelWrapperView, downCollectionView])
+        let stack = UIStackView(arrangedSubviews: [mainLabelWrapperView, descriptionLabelWrapperView, upperCollectionView])
         stack.axis = .vertical
         stack.spacing = StackSpacing.small
         stack.setCustomSpacing(StackSpacing.big, after: upperCollectionView)
         return stack
     }()
     
-    // MARK: - Initi
+    // MARK: - Init
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -115,7 +111,7 @@ final class BottomSheetView: UIView {
     }
     
     private func layoutSetup() {
-        [upperCollectionView, downCollectionView].forEach {
+        [upperCollectionView].forEach {
             $0.prepareForAutoLayOut()
         }
         
@@ -125,8 +121,7 @@ final class BottomSheetView: UIView {
         }
         
         NSLayoutConstraint.activate([
-            upperCollectionView.heightAnchor.constraint(equalToConstant: Height.upperCollectionView),
-            downCollectionView.heightAnchor.constraint(equalToConstant: Height.downCollectionView),
+            upperCollectionView.heightAnchor.constraint(equalToConstant: Height.collectionView),
             
             vStack.topAnchor.constraint(equalTo: topAnchor, constant: Padding.vertical),
             vStack.leadingAnchor.constraint(equalTo: leadingAnchor),

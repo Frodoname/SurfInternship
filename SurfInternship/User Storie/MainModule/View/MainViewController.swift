@@ -13,6 +13,14 @@ final class MainViewController: UIViewController {
     
     private lazy var mainView = MainView()
     
+    // MARK: - Local Constants
+    
+    private enum CellSize {
+        static let height: CGFloat = 44
+        static let width: CGFloat = 96
+        static let extensionConstant: CGFloat = 48
+    }
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -32,8 +40,6 @@ final class MainViewController: UIViewController {
         
         mainView.bottomSheetView.upperCollectionView.delegate = self
         mainView.bottomSheetView.upperCollectionView.dataSource = self
-        mainView.bottomSheetView.downCollectionView.delegate = self
-        mainView.bottomSheetView.downCollectionView.dataSource = self
         mainView.delegate = self
     }
     
@@ -56,45 +62,23 @@ final class MainViewController: UIViewController {
 
 extension MainViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return numberOfItems(for: collectionView)
+        return presenter.internPositions?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DirectionCell.cellId, for: indexPath) as? DirectionCell else {
             return UICollectionViewCell()
         }
-        configureCell(for: collectionView, cell, indexPath.row)
+        cell.configure(with: presenter.internPositions?[indexPath.row])
         return cell
     }
-        
-    #warning("сделать адаптивный по размеру ячейку")
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        switch collectionView {
-        case mainView.bottomSheetView.upperCollectionView:
-            return CGSize(width: 96, height: 44)
-        case mainView.bottomSheetView.downCollectionView:
-            let item = presenter.downInternPositions![indexPath.row].direction.title
-            let itemWidth = item.size(withAttributes: [NSAttributedString.Key.font: FontScheme.regular]).width + 48
-            return CGSize(width: itemWidth, height: 44)
-        default:
-            return CGSize(width: 96, height: 44)
-        }
+        return calculateSizeForItem(for: collectionView, indexPath.row)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch collectionView {
-        case mainView.bottomSheetView.upperCollectionView:
-            presenter.didTapCellAtUpperCollectionView(at: indexPath.row)
-        case mainView.bottomSheetView.downCollectionView:
-            presenter.didTapCellAtDownCollectionView(at: indexPath.row)
-        default:
-            break
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 0)
+        return presenter.didTapCell(at: indexPath.row)
     }
 }
 
@@ -105,7 +89,7 @@ extension MainViewController: MainViewOutput {
         self.showAlert(alertText: title, alertMessage: description)
     }
     
-    func updateUpperCollectionView() {
+    func updateCollectionView() {
         mainView.bottomSheetView.upperCollectionView.performBatchUpdates {
             let indexSet = IndexSet(integersIn: 0...0)
             mainView.bottomSheetView.upperCollectionView.reloadSections(indexSet)
@@ -113,38 +97,17 @@ extension MainViewController: MainViewOutput {
             mainView.bottomSheetView.upperCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
         }
     }
-    
-    func updateDownCollectionView() {
-        mainView.bottomSheetView.downCollectionView.performBatchUpdates {
-            let indexSet = IndexSet(integersIn: 0...0)
-            mainView.bottomSheetView.downCollectionView.reloadSections(indexSet)
-        }
-    }
 }
 
 // MARK: - Private Methods
 
 extension MainViewController {
-    private func numberOfItems(for collectionView: UICollectionView) -> Int {
-        switch collectionView {
-        case mainView.bottomSheetView.upperCollectionView:
-            return presenter.upperInternPositions?.count ?? 0
-        case mainView.bottomSheetView.downCollectionView:
-            return presenter.downInternPositions?.count ?? 0
-        default:
-            return 0
+    private func calculateSizeForItem(for collectionView: UICollectionView, _ position: Int) -> CGSize {
+        guard let item = presenter.internPositions?[position].direction.title else {
+            return CGSize(width: CellSize.width, height: CellSize.height)
         }
-    }
-    
-    private func configureCell(for collectionView: UICollectionView, _ cell: DirectionCell, _ position: Int) {
-        switch collectionView {
-        case mainView.bottomSheetView.upperCollectionView:
-            cell.configure(with: presenter.upperInternPositions?[position])
-        case mainView.bottomSheetView.downCollectionView:
-            cell.configure(with: presenter.downInternPositions?[position])
-        default:
-            break
-        }
+        let itemWidth = item.size(withAttributes: [NSAttributedString.Key.font: FontScheme.regular]).width + CellSize.extensionConstant
+        return CGSize(width: itemWidth, height: CellSize.height)
     }
 }
 

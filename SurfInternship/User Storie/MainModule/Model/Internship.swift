@@ -9,7 +9,7 @@ import Foundation
 
 struct Internship {
     let direction: Direction
-    let isSelected: Bool
+    var isSelected: Bool
 }
 
 enum Direction {

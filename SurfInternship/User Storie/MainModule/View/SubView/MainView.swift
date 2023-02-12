@@ -14,14 +14,15 @@ protocol ApplyButtonProtocol: AnyObject {
 final class MainView: UIView {
     
     weak var delegate: ApplyButtonProtocol?
-    
+        
     // MARK: - Local Constants
     
     private let image = "backgroundImage"
     
     private enum Padding {
-        static let vertica: CGFloat = 24
         static let bottomSheet: CGFloat = 100
+        static let horizontalButton: CGFloat = 20
+        static let verticalButton: CGFloat = 58
     }
     
     // MARK: - UI Elements
@@ -84,9 +85,6 @@ final class MainView: UIView {
             $0.prepareForAutoLayOut()
         }
     
-        
-#warning("убрать число в константы")
-        
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
@@ -108,9 +106,9 @@ final class MainView: UIView {
             bottomSheetView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             bottomSheetView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             
-            applyButtonView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            applyButtonView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            applyButtonView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -58)
+            applyButtonView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Padding.horizontalButton),
+            applyButtonView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Padding.horizontalButton),
+            applyButtonView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Padding.verticalButton)
         ])
     }
 }

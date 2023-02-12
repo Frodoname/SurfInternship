@@ -10,17 +10,20 @@ import UIKit
 final class DirectionCell: UICollectionViewCell {
         
     // MARK: - Public Methods
-    #warning("убрать force unwrap!")
+    
     func configure(with internship: Internship?) {
-        name.text = internship?.direction.title
-        backgroundColor = internship!.isSelected ? ColorScheme.black : ColorScheme.gray
-        name.textColor = internship!.isSelected ? ColorScheme.white : ColorScheme.black
+        guard let internship else {
+            return
+        }
+        name.text = internship.direction.title
+        backgroundColor = internship.isSelected ? ColorScheme.black : ColorScheme.gray
+        name.textColor = internship.isSelected ? ColorScheme.white : ColorScheme.black
     }
     
     // MARK: - Constants
     
     static let cellId = "cellId"
-    private let cellCornerRadius: CGFloat = 12
+    private let cornerRadius: CGFloat = 12
     
     // MARK: - UI Elements
     
@@ -43,20 +46,11 @@ final class DirectionCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Overriding
-    
-//    override var isSelected: Bool {
-//        didSet {
-//            backgroundColor = isSelected ? ColorScheme.black : ColorScheme.gray
-//            name.textColor = isSelected ? ColorScheme.white : ColorScheme.black
-//        }
-//    }
-    
     // MARK: - Setup
     
     private func cellSetup() {
         backgroundColor = ColorScheme.gray
-        layer.cornerRadius = cellCornerRadius
+        layer.cornerRadius = cornerRadius
         
         layoutSetup()
     }
